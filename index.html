@@ -1,4 +1,156 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Access</title>
 
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:#050505;
+  color:#00ff66;
+  font-family:monospace;
+  min-height:100vh;
+  padding:20px;
+}
+.terminal{
+  max-width:700px;
+  margin:auto;
+  border:1px solid #00ff66;
+  box-shadow:0 0 25px #00ff6644;
+  padding:20px;
+  min-height:90vh;
+}
+h1{
+  text-align:center;
+  font-size:25px;
+  text-shadow:0 0 10px #00ff66;
+}
+.line{margin:14px 0}
+.loading{
+  height:14px;
+  border:1px solid #00ff66;
+  margin:20px 0;
+}
+.bar{
+  height:100%;
+  width:0%;
+  background:#00ff66;
+  box-shadow:0 0 12px #00ff66;
+  transition:width .3s;
+}
+.warning{
+  display:none;
+  text-align:center;
+  color:#ff3333;
+  font-size:25px;
+  font-weight:bold;
+  margin-top:30px;
+  animation:blink .6s infinite alternate;
+}
+.prank{
+  display:none;
+  text-align:center;
+  color:white;
+  font-family:Arial,sans-serif;
+  font-size:24px;
+  margin-top:30px;
+}
+button{
+  display:none;
+  margin:25px auto;
+  padding:12px 25px;
+  background:#00ff66;
+  border:0;
+  font-weight:bold;
+  cursor:pointer;
+}
+@keyframes blink{
+  from{opacity:1}
+  to{opacity:.25}
+}
+</style>
+</head>
+
+<body>
+
+<div class="terminal">
+
+<h1>⚠ SYSTEM SECURITY TERMINAL ⚠</h1>
+
+<div id="terminal"></div>
+
+<div class="loading">
+  <div class="bar" id="bar"></div>
+</div>
+
+<div class="warning" id="warning">
+  ⚠ ACCESS DETECTED ⚠
+</div>
+
+<div class="prank" id="prank">
+  😂😂 PRANK HO GAYA! 😂😂<br><br>
+  Tension mat lo 😎<br>
+  Ye sirf ek fake website thi.<br><br>
+  <small>Nothing was hacked. Nothing was accessed.</small>
+</div>
+
+<button id="btn" onclick="location.reload()">RUN AGAIN</button>
+
+</div>
+
+<script>
+
+const messages=[
+"> Initializing secure terminal...",
+"> Connecting to remote server...",
+"> Checking security protocols...",
+"> Encrypting connection...",
+"> Scanning virtual system...",
+"> Bypassing simulation firewall...",
+"> Access sequence started...",
+"> Downloading fake system data...",
+"> ████████████████████",
+"> Final security check..."
+];
+
+let i=0;
+let terminal=document.getElementById("terminal");
+let bar=document.getElementById("bar");
+
+function addLine(){
+  if(i < messages.length){
+    let div=document.createElement("div");
+    div.className="line";
+    div.textContent=messages[i];
+    terminal.appendChild(div);
+
+    i++;
+    bar.style.width=(i/messages.length*100)+"%";
+
+    setTimeout(addLine,700);
+  }else{
+    setTimeout(()=>{
+      document.getElementById("warning").style.display="block";
+
+      setTimeout(()=>{
+        document.getElementById("warning").style.display="none";
+        document.getElementById("prank").style.display="block";
+        document.getElementById("btn").style.display="block";
+      },2500);
+
+    },800);
+  }
+}
+
+addLine();
+
+</script>
+
+</body>
+</html>
 <!DOCTYPE html>
 <html lang="hi">
 <head>
