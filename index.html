@@ -1,79 +1,154 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="hi">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>डाक कांवड़ — विशेष उपहार</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>System Access</title>
+
 <style>
 *{box-sizing:border-box}
-body{margin:0;min-height:100vh;background:#f5f0e8;color:#222;font-family:Arial,sans-serif;display:flex;justify-content:center;align-items:center;padding:18px}
-.card{width:min(500px,100%);background:#fff;border-radius:22px;padding:25px;box-shadow:0 8px 35px #0002;text-align:center;border:1px solid #ddd}
-.badge{display:inline-block;background:#ff7a00;color:white;padding:7px 14px;border-radius:20px;font-weight:bold}
-h1{font-size:27px;margin:16px 0 8px}
-p{line-height:1.55}
-.icon{font-size:62px}
-button{border:0;border-radius:14px;padding:14px 22px;font-size:18px;font-weight:bold;background:#ff7a00;color:white}
-.bar{height:16px;background:#eee;border-radius:20px;overflow:hidden;margin:22px 0 10px}
-#fill{height:100%;width:0;background:#ff7a00;transition:width .15s}
-#result{display:none}
-.note{font-size:12px;color:#777;margin-top:18px}
+body{
+  margin:0;
+  background:#050505;
+  color:#00ff66;
+  font-family:monospace;
+  min-height:100vh;
+  padding:20px;
+}
+.terminal{
+  max-width:700px;
+  margin:auto;
+  border:1px solid #00ff66;
+  box-shadow:0 0 25px #00ff6644;
+  padding:20px;
+  min-height:90vh;
+}
+h1{
+  text-align:center;
+  font-size:25px;
+  text-shadow:0 0 10px #00ff66;
+}
+.line{margin:14px 0}
+.loading{
+  height:14px;
+  border:1px solid #00ff66;
+  margin:20px 0;
+}
+.bar{
+  height:100%;
+  width:0%;
+  background:#00ff66;
+  box-shadow:0 0 12px #00ff66;
+  transition:width .3s;
+}
+.warning{
+  display:none;
+  text-align:center;
+  color:#ff3333;
+  font-size:25px;
+  font-weight:bold;
+  margin-top:30px;
+  animation:blink .6s infinite alternate;
+}
+.prank{
+  display:none;
+  text-align:center;
+  color:white;
+  font-family:Arial,sans-serif;
+  font-size:24px;
+  margin-top:30px;
+}
+button{
+  display:none;
+  margin:25px auto;
+  padding:12px 25px;
+  background:#00ff66;
+  border:0;
+  font-weight:bold;
+  cursor:pointer;
+}
+@keyframes blink{
+  from{opacity:1}
+  to{opacity:.25}
+}
 </style>
 </head>
+
 <body>
-<div class="card">
-  <div id="start">
-    <div class="icon">🪔🙏</div>
-    <span class="badge">विशेष सूचना</span>
-    <h1>डाक कांवड़ में शामिल साथियों के लिए विशेष उपहार 🎁</h1>
-    <p>इस ग्रुप में शामिल सभी साथियों के लिए एक छोटा-सा सरप्राइज़ रखा गया है।</p>
-    <button onclick="startGift()">🎁 उपहार देखें</button>
-  </div>
 
-  <div id="loading" style="display:none">
-    <div class="icon">🔐</div>
-    <h1>उपहार तैयार किया जा रहा है...</h1>
-    <p id="status">आपके लिए विशेष संदेश तैयार हो रहा है।</p>
-    <div class="bar"><div id="fill"></div></div>
-    <b id="percent">0%</b>
-  </div>
+<div class="terminal">
 
-  <div id="result">
-    <div class="icon">🎉🎁</div>
-    <h1>आपके लिए शुभकामनाएँ!</h1>
-    <p>डाक कांवड़ में शामिल होने वाले सभी साथियों को ढेरों शुभकामनाएँ।</p>
-    <p><b>आपका असली “गिफ्ट” है — सुरक्षित रहें, खुश रहें और भोलेनाथ का आशीर्वाद बना रहे। 🙏🔱</b></p>
-    <div style="font-size:30px">हर हर महादेव 🔱</div>
-  </div>
+<h1>⚠ SYSTEM SECURITY TERMINAL ⚠</h1>
 
-  <div class="note">यह पेज किसी भी निजी जानकारी, फोटो, कॉन्टैक्ट या डिवाइस डेटा को एक्सेस नहीं करता।</div>
+<div id="terminal"></div>
+
+<div class="loading">
+  <div class="bar" id="bar"></div>
+</div>
+
+<div class="warning" id="warning">
+  ⚠ ACCESS DETECTED ⚠
+</div>
+
+<div class="prank" id="prank">
+  😂😂 PRANK HO GAYA! 😂😂<br><br>
+  Tension mat lo 😎<br>
+  Ye sirf ek fake website thi.<br><br>
+  <small>Nothing was hacked. Nothing was accessed.</small>
+</div>
+
+<button id="btn" onclick="location.reload()">RUN AGAIN</button>
+
 </div>
 
 <script>
-function startGift(){
-  document.getElementById('start').style.display='none';
-  document.getElementById('loading').style.display='block';
-  let p=0;
-  const fill=document.getElementById('fill');
-  const percent=document.getElementById('percent');
-  const status=document.getElementById('status');
 
-  const timer=setInterval(()=>{
-    p += Math.floor(Math.random()*8)+4;
-    if(p>100)p=100;
-    fill.style.width=p+'%';
-    percent.textContent=p+'%';
-    if(p<35) status.textContent='विशेष संदेश तैयार हो रहा है...';
-    else if(p<70) status.textContent='उपहार की पुष्टि की जा रही है...';
-    else if(p<100) status.textContent='बस कुछ सेकंड और...';
-    else{
-      clearInterval(timer);
+const messages=[
+"> Initializing secure terminal...",
+"> Connecting to remote server...",
+"> Checking security protocols...",
+"> Encrypting connection...",
+"> Scanning virtual system...",
+"> Bypassing simulation firewall...",
+"> Access sequence started...",
+"> Downloading fake system data...",
+"> ████████████████████",
+"> Final security check..."
+];
+
+let i=0;
+let terminal=document.getElementById("terminal");
+let bar=document.getElementById("bar");
+
+function addLine(){
+  if(i < messages.length){
+    let div=document.createElement("div");
+    div.className="line";
+    div.textContent=messages[i];
+    terminal.appendChild(div);
+
+    i++;
+    bar.style.width=(i/messages.length*100)+"%";
+
+    setTimeout(addLine,700);
+  }else{
+    setTimeout(()=>{
+      document.getElementById("warning").style.display="block";
+
       setTimeout(()=>{
-        document.getElementById('loading').style.display='none';
-        document.getElementById('result').style.display='block';
-      },700);
-    }
-  },180);
+        document.getElementById("warning").style.display="none";
+        document.getElementById("prank").style.display="block";
+        document.getElementById("btn").style.display="block";
+      },2500);
+
+    },800);
+  }
 }
+
+addLine();
+
 </script>
+
 </body>
 </html>
